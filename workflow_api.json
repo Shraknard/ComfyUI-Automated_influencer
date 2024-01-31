@@ -1,0 +1,590 @@
+{
+  "27": {
+    "inputs": {
+      "strength": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "positive": [
+        "66",
+        0
+      ],
+      "negative": [
+        "67",
+        0
+      ],
+      "control_net": [
+        "28",
+        0
+      ],
+      "image": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "Apply ControlNet (Advanced)"
+    }
+  },
+  "28": {
+    "inputs": {
+      "control_net_name": "thibaud_xl_openpose_256lora.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "29": {
+    "inputs": {
+      "image": "5 (2).png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "input_pose"
+    }
+  },
+  "65": {
+    "inputs": {
+      "ckpt_name": "sdxlrealisticDigital_v40.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "66": {
+    "inputs": {
+      "text": "Beautiful girl, instagram influencer, grain, jpeg artifacts, Nixxie, 28 years old european girl, (wearing fashion clothes:1.1)",
+      "clip": [
+        "65",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "positive_prompt"
+    }
+  },
+  "67": {
+    "inputs": {
+      "text": "(watermark:1.2), (text:1.2), logo, (3D render:1.2), drawing, painting, crayon, bug, malformation, bad proportions, (mole:1.1), (bad hands:1.15), perfect, magazine, professional model, tattoos, (too many fingers:1.15)",
+      "clip": [
+        "65",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "negative_prompt"
+    }
+  },
+  "68": {
+    "inputs": {
+      "seed": 500557261227352,
+      "steps": 30,
+      "cfg": 7,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "65",
+        0
+      ],
+      "positive": [
+        "27",
+        0
+      ],
+      "negative": [
+        "27",
+        1
+      ],
+      "latent_image": [
+        "69",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "69": {
+    "inputs": {
+      "width": 896,
+      "height": 1152,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "72": {
+    "inputs": {
+      "samples": [
+        "68",
+        0
+      ],
+      "vae": [
+        "65",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "175": {
+    "inputs": {
+      "images": [
+        "72",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "176": {
+    "inputs": {
+      "weight": 0.9,
+      "noise": 0,
+      "weight_type": "original",
+      "start_at": 0,
+      "end_at": 1,
+      "unfold_batch": false,
+      "ipadapter": [
+        "186",
+        0
+      ],
+      "clip_vision": [
+        "187",
+        0
+      ],
+      "image": [
+        "180",
+        0
+      ],
+      "model": [
+        "65",
+        0
+      ],
+      "attn_mask": [
+        "177",
+        0
+      ]
+    },
+    "class_type": "IPAdapterApply",
+    "_meta": {
+      "title": "Apply IPAdapter"
+    }
+  },
+  "177": {
+    "inputs": {
+      "channel": "alpha",
+      "image": [
+        "178",
+        0
+      ]
+    },
+    "class_type": "ImageToMask",
+    "_meta": {
+      "title": "Convert Image to Mask"
+    }
+  },
+  "178": {
+    "inputs": {
+      "apply_effect": "Remove Face",
+      "image": [
+        "72",
+        0
+      ]
+    },
+    "class_type": "Remover",
+    "_meta": {
+      "title": "Remove Parts"
+    }
+  },
+  "179": {
+    "inputs": {
+      "images": [
+        "178",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "180": {
+    "inputs": {
+      "image": "ComfyUI_temp_nrifa_00003_.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "input_face"
+    }
+  },
+  "181": {
+    "inputs": {
+      "seed": 521172243228914,
+      "steps": 40,
+      "cfg": 7,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 0.6,
+      "model": [
+        "176",
+        0
+      ],
+      "positive": [
+        "27",
+        0
+      ],
+      "negative": [
+        "27",
+        1
+      ],
+      "latent_image": [
+        "68",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "184": {
+    "inputs": {
+      "samples": [
+        "204",
+        0
+      ],
+      "vae": [
+        "65",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "185": {
+    "inputs": {
+      "images": [
+        "213",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Ipadapter"
+    }
+  },
+  "186": {
+    "inputs": {
+      "ipadapter_file": "ip-adapter_sdxl.safetensors"
+    },
+    "class_type": "IPAdapterModelLoader",
+    "_meta": {
+      "title": "Load IPAdapter Model"
+    }
+  },
+  "187": {
+    "inputs": {
+      "clip_name": "clip_vision_g.safetensors"
+    },
+    "class_type": "CLIPVisionLoader",
+    "_meta": {
+      "title": "Load CLIP Vision"
+    }
+  },
+  "188": {
+    "inputs": {
+      "enabled": true,
+      "swap_model": "inswapper_128.onnx",
+      "facedetection": "YOLOv5l",
+      "face_restore_model": "codeformer.pth",
+      "face_restore_visibility": 0.65,
+      "codeformer_weight": 0.6,
+      "detect_gender_source": "female",
+      "detect_gender_input": "female",
+      "source_faces_index": "0",
+      "input_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": [
+        "184",
+        0
+      ],
+      "source_image": [
+        "180",
+        0
+      ]
+    },
+    "class_type": "ReActorFaceSwap",
+    "_meta": {
+      "title": "ReActor - Fast Face Swap"
+    }
+  },
+  "190": {
+    "inputs": {
+      "images": [
+        "188",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Face swap"
+    }
+  },
+  "192": {
+    "inputs": {
+      "upscale_model": [
+        "193",
+        0
+      ],
+      "image": [
+        "188",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "Upscale Image (using Model)"
+    }
+  },
+  "193": {
+    "inputs": {
+      "model_name": "4x_NMKD-Superscale-SP_178000_G.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "Load Upscale Model"
+    }
+  },
+  "194": {
+    "inputs": {
+      "images": [
+        "192",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Upscale"
+    }
+  },
+  "199": {
+    "inputs": {
+      "mask_bbox_padding": 30,
+      "resolution": 896,
+      "mask_type": "original",
+      "mask_expand": 4,
+      "rand_seed": 88,
+      "image": [
+        "213",
+        0
+      ]
+    },
+    "class_type": "MeshGraphormer-DepthMapPreprocessor",
+    "_meta": {
+      "title": "MeshGraphormer Hand Refiner"
+    }
+  },
+  "200": {
+    "inputs": {
+      "images": [
+        "199",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Depth preview"
+    }
+  },
+  "202": {
+    "inputs": {
+      "strength": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "positive": [
+        "27",
+        0
+      ],
+      "negative": [
+        "27",
+        1
+      ],
+      "control_net": [
+        "203",
+        0
+      ],
+      "image": [
+        "199",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "Apply ControlNet (Advanced)"
+    }
+  },
+  "203": {
+    "inputs": {
+      "control_net_name": "sai_xl_depth_128lora.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "204": {
+    "inputs": {
+      "seed": 874052454340658,
+      "steps": 60,
+      "cfg": 7.6000000000000005,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 0.9,
+      "model": [
+        "176",
+        0
+      ],
+      "positive": [
+        "202",
+        0
+      ],
+      "negative": [
+        "202",
+        1
+      ],
+      "latent_image": [
+        "207",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "205": {
+    "inputs": {
+      "samples": [
+        "204",
+        0
+      ],
+      "vae": [
+        "65",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "206": {
+    "inputs": {
+      "images": [
+        "205",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Fixed hands"
+    }
+  },
+  "207": {
+    "inputs": {
+      "samples": [
+        "181",
+        0
+      ],
+      "mask": [
+        "199",
+        1
+      ]
+    },
+    "class_type": "SetLatentNoiseMask",
+    "_meta": {
+      "title": "Set Latent Noise Mask"
+    }
+  },
+  "211": {
+    "inputs": {
+      "mask": [
+        "199",
+        1
+      ]
+    },
+    "class_type": "MaskToImage",
+    "_meta": {
+      "title": "Convert Mask to Image"
+    }
+  },
+  "212": {
+    "inputs": {
+      "images": [
+        "211",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "mask preview"
+    }
+  },
+  "213": {
+    "inputs": {
+      "samples": [
+        "181",
+        0
+      ],
+      "vae": [
+        "65",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "215": {
+    "inputs": {
+      "output_path": "[time(%Y-%m-%d)]",
+      "filename_prefix": "ComfyUI",
+      "filename_delimiter": "_",
+      "filename_number_padding": 4,
+      "filename_number_start": "false",
+      "extension": "png",
+      "quality": 100,
+      "lossless_webp": "false",
+      "overwrite_mode": "false",
+      "show_history": "false",
+      "show_history_by_prefix": "true",
+      "embed_workflow": "true",
+      "show_previews": "true",
+      "images": [
+        "192",
+        0
+      ]
+    },
+    "class_type": "Image Save",
+    "_meta": {
+      "title": "image_save"
+    }
+  }
+}
